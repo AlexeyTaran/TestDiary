@@ -11,7 +11,11 @@ class MemberRepositoryImpl @Inject constructor(private val appDatabase: AppDatab
         return appDatabase.memberDao().getAllMembers()
     }
 
-    override fun getMemberById(id: Int): MemberDb? {
+    override suspend fun getMemberById(id: Int): MemberDb? {
         return appDatabase.memberDao().getMemberById(id)
+    }
+
+    override suspend fun insertNewMember(member: MemberDb) {
+        appDatabase.memberDao().insertNewMember(member)
     }
 }
