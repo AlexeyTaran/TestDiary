@@ -9,5 +9,18 @@
         android:id="@+id/memberListFragment"
         android:name="com.taran.testdiary.presentation.member_list.MemberListFragment"
         tools:layout="@layout/fragment_list_member"
-        android:label="MemberListFragment" />
+        android:label="MemberListFragment" >
+        <action
+            android:id="@+id/action_memberListFragment_to_rootFlowFragment"
+            app:destination="@id/rootFlowFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/rootFlowFragment"
+        android:name="com.taran.testdiary.presentation.member_flow.root.RootFlowFragment"
+        tools:layout="@layout/fragment_root_flow"
+        android:label="RootFlowFragment" />
 </navigation>

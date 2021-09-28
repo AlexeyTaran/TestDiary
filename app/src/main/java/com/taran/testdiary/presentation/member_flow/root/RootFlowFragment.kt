@@ -1,4 +1,4 @@
-package com.taran.testdiary.presentation.member_list
+package com.taran.testdiary.presentation.member_flow.root
 
 import android.os.Bundle
 import android.util.Log
@@ -8,18 +8,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.taran.testdiary.R
-import com.taran.testdiary.databinding.FragmentListMemberBinding
+import com.taran.testdiary.databinding.FragmentRootFlowBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MemberListFragment : Fragment(R.layout.fragment_list_member) {
-    private val viewModel: MemberListViewModel by viewModels()
-    private val viewBinding: FragmentListMemberBinding by viewBinding()
+class RootFlowFragment : Fragment(R.layout.fragment_root_flow) {
+
+    private val viewBinding: FragmentRootFlowBinding by viewBinding()
+    private val viewModel: RootFlowViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,17 +29,16 @@ class MemberListFragment : Fragment(R.layout.fragment_list_member) {
 
     private fun setupView() {
         with (viewBinding) {
-            toFlowButton.setOnClickListener {
-                findNavController().navigate(MemberListFragmentDirections.actionMemberListFragmentToRootFlowFragment())
-            }
+            viewPager.isUserInputEnabled = false
+            viewPager.adapter = RootFlowPagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
         }
     }
 
     private fun setupData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.memberList.collect {
-                    Log.d("ttt", "List = $it")
+                viewModel.currentFlowPosition.collect { position ->
+                    viewBinding.viewPager.currentItem = position
                 }
             }
         }
