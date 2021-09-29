@@ -25,18 +25,21 @@ class WeightFlowFragment : Fragment(R.layout.fragment_weight_flow) {
     private fun setupView() {
         with(viewBinding) {
             footer.back.setOnClickListener { findNavController().popBackStack() } // footer can be custom view
-            weightEt.addTextChangedListener {
+            weightTiet.addTextChangedListener {
                 footer.next.isEnabled = !it.isNullOrEmpty()
             }
             footer.next.setOnClickListener {
                 val weight = try {
-                    Integer.parseInt(weightEt.text?.toString() ?: "")
+                    Integer.parseInt(weightTiet.text?.toString() ?: "")
                 } catch (e: NumberFormatException) {
                     0
                 }
-                if (weight > 0) {
+                if (weight in 1..300) {
+                    weightTiet.error = null
                     rootViewModel.setMemberWeight(weight)
                     rootViewModel.toDateOfBirth()
+                } else {
+                    weightTil.error = "Please, check your weight!"
                 }
             }
         }
