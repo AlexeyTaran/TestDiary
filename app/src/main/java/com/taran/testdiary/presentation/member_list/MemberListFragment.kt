@@ -1,7 +1,6 @@
 package com.taran.testdiary.presentation.member_list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -35,6 +34,9 @@ class MemberListFragment : Fragment(R.layout.fragment_list_member) {
             recyclerList.adapter = memberAdapter
             toFlowButton.setOnClickListener {
                 findNavController().navigate(MemberListFragmentDirections.actionMemberListFragmentToRootFlowFragment())
+            }
+            removeAllBtn.setOnClickListener {
+                viewModel.deleteAllMembers()
             }
         }
     }

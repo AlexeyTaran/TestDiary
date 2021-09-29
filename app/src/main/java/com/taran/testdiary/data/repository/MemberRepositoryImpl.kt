@@ -18,4 +18,8 @@ class MemberRepositoryImpl @Inject constructor(private val appDatabase: AppDatab
     override suspend fun insertNewMember(member: MemberDb) {
         appDatabase.memberDao().insertNewMember(member)
     }
+
+    override suspend fun deleteAllMembers() {
+        appDatabase.memberDao().deleteAllMembers()
+    }
 }

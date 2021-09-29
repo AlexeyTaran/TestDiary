@@ -17,4 +17,7 @@ interface MemberDao {
 
     @Insert
     suspend fun insertNewMember(member: MemberDb)
+
+    @Query("DELETE FROM Member")
+    suspend fun deleteAllMembers()
 }

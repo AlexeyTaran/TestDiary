@@ -2,7 +2,6 @@ package com.taran.testdiary.presentation.member_flow.root
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -33,14 +32,6 @@ class RootFlowFragment : Fragment(R.layout.fragment_root_flow) {
             viewPager.isUserInputEnabled = false
             viewPager.adapter =
                 RootFlowPagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
-
-            activity?.onBackPressedDispatcher?.addCallback(owner = this@RootFlowFragment) {
-                if (viewPager.currentItem != 0) {
-                    viewPager.currentItem = viewPager.currentItem - 1
-                } else {
-                    findNavController().popBackStack()
-                }
-            }
         }
     }
 

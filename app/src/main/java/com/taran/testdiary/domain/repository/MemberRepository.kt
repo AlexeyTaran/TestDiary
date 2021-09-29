@@ -7,4 +7,5 @@ interface MemberRepository {
     suspend fun getMemberById(id: Int): MemberDb?
     fun getMemberList(): Flow<List<MemberDb>>
     suspend fun insertNewMember(member: MemberDb)
+    suspend fun deleteAllMembers()
 }
